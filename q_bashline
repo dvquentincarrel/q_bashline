@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Status line for bash
+# Structure:
+#     exit_code / nnn_depth / pwd / git-branch / git-status-infos
+
+exit_code=$?
+
+_exit=
+_nnn=
+_cwd=
+SLEEPTIME=0.02
+GIT_INFO= # Remove if you don't want to reset output between each command
+
+# If inside git repo
+if [ -d .git ] || git rev-parse 2>/dev/null;then
+	# Sends cwd to git_lineutils
+	pwd -P >&${CO_NC_GIT[1]}
+	# Get only the latest output produced by git linetuils
+	if [[ $GIT_ASYNC == true ]]; then
+		sleep $SLEEPTIME # Unnoticeable, "long" enough to give time to git_lineutils to process its things, usually
+		while read -t 0; do # While there's buffered data in the pipe
+			read -r GIT_INFO <&${CO_NC_GIT[0]}
+		done <&${CO_NC_GIT[0]}
+	else
+		read -r GIT_INFO <&${CO_NC_GIT[0]}
+	fi
+fi
+
+printf -v _exit "${C_EXT_F}${exit_code}${C_GEN_F}"
+printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
+
+# if inside nnn
+[ -n "$NNNLVL" ] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
+
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_nnn}${_cwd}${GIT_INFO}${C_GEN_T}${C_STP}"
+printf "\e]0 $(basename $PWD)" # Updates window title

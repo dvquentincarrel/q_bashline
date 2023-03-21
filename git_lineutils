@@ -1,0 +1,39 @@
+#!/bin/bash
+# Gives info about files status in the current directory according to git
+
+source bashline_colors
+source drain_socket
+
+coproc CO_NC_GIT { nc -U /tmp/.QBL_$PPID; }
+
+# Loops over socket
+while read path; do
+	Q_GBRANCH= # Branch of current repo
+	Q_GINFO= # Infos on current repo status
+	git_info= # Preprocessed status infos
+
+	# Get last queue item. Necessary because items could pile up if added during processing
+	latest_path=$(drain_socket ${CO_NC_GIT[0]} "$path")
+	cd "$latest_path"
+
+	# Get current branch name or commit sha if detached
+    head_info=$(git branch --show-current)
+    if [[ -z "$head_info" ]]; then
+        head_info=$(git rev-parse --short HEAD)
+    fi
+	printf -v Q_GBRANCH "▕ ${C_BRA_F}${head_info}${C_GEN_F}"
+	output=$(git status --porcelain | cut -c -2)
+	if [[ -n "$output" ]]; then
+		untracked=$(grep -cP '\?\?' <<< "$output")
+		unstaged=$(grep -cP ' .' <<< "$output")
+		staged=$(grep -cP '. ' <<< "$output")
+		git_info=("$staged+" "$unstaged!" "$untracked?")
+	fi
+	# if there are local changes
+	if [ -n "$git_info" ]; then
+		printf -v Q_GINFO "▕ ${C_STA}${git_info[0]}${C_UNS}${git_info[1]}${C_UNT}${git_info[2]}${C_GEN_F}"
+	fi
+
+	echo "${Q_GBRANCH}${Q_GINFO}" >&${CO_NC_GIT[1]}
+
+done <&${CO_NC_GIT[0]}
