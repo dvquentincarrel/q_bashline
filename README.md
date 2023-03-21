@@ -9,12 +9,12 @@ This is a statusline for bash.
 - Working tree status
 
 Due to the time it may take to retrieve informations on large repos, this operation
-is done asynchronously.  
+is done asynchronously with IPC done through UNIX sockets.  
 Due to limitations to either bash or my own knowledge,
 status line gets updated only after every command.
 
 Should the asynchronicity bother you, you could disable it by setting the env var
-$GIT_ASYNC to false.
+`$GIT_ASYNC` to false.
 
 ## Installation
 To wire your bash to use this, run `setup.sh` or add the corresponding lines
