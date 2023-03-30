@@ -28,6 +28,6 @@ lbin="$HOME/.local/bin"
 mkdir -p "$HOME/.local/bin"
 for executable in \
         bashline_colors drain_socket \
-        git_lineutilsv2 q_bashline; do
+        git_lineutils q_bashline; do
     ln -si "$PWD/$executable" "$lbin/$executable"
 done
