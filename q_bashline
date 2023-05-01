@@ -12,8 +12,14 @@ _cwd=
 SLEEPTIME=0.02
 GIT_INFO= # Remove if you don't want to reset output between each command
 
-# If inside git repo
-if [ -d .git ] || git rev-parse 2>/dev/null;then
+# Displays error message ONCE, after the coproc died
+if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
+    QBL_ALIVE=false
+    echo -e '\e[1;31mq_bashline died\e[0m'
+fi
+
+# If inside git repo & coproc still alive
+if ([ -d .git ] || git rev-parse 2>/dev/null) && [[ -n $CO_NC_GIT ]] ;then
 	# Sends cwd to git_lineutils
 	pwd -P >&${CO_NC_GIT[1]}
 	# Get only the latest output produced by git linetuils
