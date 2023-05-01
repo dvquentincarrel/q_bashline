@@ -14,7 +14,7 @@ fi
 if [[ "$update_bashrc" == "true" ]]; then
 # Adds relevant lines to bashrc
     cat >> "$HOME/.bashrc" <<EOF
-coproc CO_NC_GIT { nc -klU /tmp/.QBL_\$\$; } && disown \$!
+coproc CO_NC_GIT { trap -- "true" EXIT; nc -klU /tmp/.QBL_\$\$; } && disown \$!
 git_lineutils \$\$ & disown \$!
 LINEUTILS_PID=\$!
 trap "rm -f /tmp/.QBL_\$$; kill \$LINEUTILS_PID" EXIT

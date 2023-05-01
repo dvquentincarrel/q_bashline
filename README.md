@@ -20,7 +20,7 @@ Should the asynchronicity bother you, you could disable it by setting the env va
 To wire your bash to use this, run `setup.sh` or add the corresponding lines
 at the end of your bashrc:
 ~~~ bash
-coproc CO_NC_GIT { nc -klU /tmp/.QBL_$$; } && disown $!
+coproc CO_NC_GIT { trap -- "true" EXIT; nc -klU /tmp/.QBL_$$; } && disown $!
 git_lineutils $$ & disown $!
 LINEUTILS_PID=$!
 trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
