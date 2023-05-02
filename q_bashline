@@ -9,7 +9,8 @@ exit_code=$?
 _exit=
 _nnn=
 _cwd=
-SLEEPTIME=0.02
+QBL_SLEEP=${QBL_SLEEP:-0.02}
+QBL_ASYNC=${QBL_ASYNC:-true} # Asynchronous by default
 GIT_INFO= # Remove if you don't want to reset output between each command
 
 # Displays error message ONCE, after the coproc died
@@ -23,8 +24,8 @@ if ([ -d .git ] || git rev-parse 2>/dev/null) && [[ -n $CO_NC_GIT ]] ;then
 	# Sends cwd to git_lineutils
 	pwd -P >&${CO_NC_GIT[1]}
 	# Get only the latest output produced by git linetuils
-	if [[ $GIT_ASYNC == true ]]; then
-		sleep $SLEEPTIME # Unnoticeable, "long" enough to give time to git_lineutils to process its things, usually
+	if [[ $QBL_ASYNC == true ]]; then
+		sleep $QBL_SLEEP # Unnoticeable, "long" enough to give time to git_lineutils to process its things, usually
 		while read -t 0; do # While there's buffered data in the pipe
 			read -r GIT_INFO <&${CO_NC_GIT[0]}
 		done <&${CO_NC_GIT[0]}
