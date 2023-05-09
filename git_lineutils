@@ -7,7 +7,7 @@ source drain_socket
 coproc CO_NC_GIT { nc -U /tmp/.QBL_$PPID; }
 
 # Loops over socket
-while read path; do
+while read -r path; do
     Q_GBRANCH= # Branch of current repo
     Q_GINFO= # Infos on current repo status
     Q_REMOTE= # Infos on history diff with remote
