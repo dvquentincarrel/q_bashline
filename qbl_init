@@ -1,0 +1,11 @@
+
+#!/bin/bash
+# Initializes everything needed for the bashline. Makes it so only a single line is needed in the bashrc
+
+# Sets up coprocess for IPC, creates prompt maker, handles deletion of unix socket at process death, updates prompt
+coproc CO_NC_GIT { trap -- "true" EXIT; nc -klU /tmp/.QBL_$$; } && disown $!
+git_lineutils $$ & disown $!
+LINEUTILS_PID=$!
+trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
+source bashline_colors
+PROMPT_COMMAND="$PROMPT_COMMAND; source q_bashline"
