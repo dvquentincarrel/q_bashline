@@ -10,7 +10,7 @@ _exit=
 _nnn=
 _cwd=
 QBL_SLEEP=${QBL_SLEEP:-0.02}
-QBL_ASYNC=${QBL_ASYNC:-true} # Asynchronous by default
+QBL_ASYNC=${QBL_ASYNC:-false} # Synchronous by default
 GIT_INFO= # Remove if you don't want to reset output between each command
 
 # Displays error message ONCE, after the coproc died
@@ -40,5 +40,5 @@ printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
 # if inside nnn
 [ -n "$NNNLVL" ] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
 
-printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_nnn}${_cwd}${GIT_INFO}${C_GEN_T}${C_STP}"
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_nnn}${_cwd}${GIT_INFO}${C_GEN_T}${C_STP} "
 printf "\e]0 $(basename $PWD)" # Updates window title
