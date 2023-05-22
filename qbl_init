@@ -8,4 +8,4 @@ git_lineutils $$ & disown $!
 LINEUTILS_PID=$!
 trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
 source bashline_colors
-PROMPT_COMMAND="$PROMPT_COMMAND; source q_bashline"
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }source q_bashline"
