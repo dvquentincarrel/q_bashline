@@ -1,26 +1,53 @@
 #!/bin/bash
 # setups colors for bashline. Only run once at shell init
 
-# enclosed in \[ ... \] to tell bash not to count them in the total length of the prompt
-C_STP="\[\e[0m\]" # Stop
 
-C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
+if [[ -n "$BASH_VERSION" ]]; then
+    # enclosed in \[ ... \] to tell bash not to count them in the total length of the prompt
+    C_STP="\[\e[0m\]" # Stop
 
-C_NNN_F="\[\e[38;5;163m\]" # nnn | purple (dark/light)
+    C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
 
-C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue (dark/light)
+    C_NNN_F="\[\e[38;5;163m\]" # nnn | purple (dark/light)
 
-C_BRA_F="\[\e[38;5;214m\]" # Git Branch | yellow (dark/light)
+    C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue (dark/light)
 
-C_SBR_F="\[\e[37m\]" # git status square brackets | white / black
+    C_BRA_F="\[\e[38;5;214m\]" # Git Branch | yellow (dark/light)
 
-C_STA="\[\e[38;5;40m\]" # Staged | green 
-C_UNS="\[\e[38;5;166m\]" # Unstaged | orange 
-C_UNT="\[\e[38;5;197m\]" # Untracked | red 
+    C_SBR_F="\[\e[37m\]" # git status square brackets | white / black
 
-C_AHD="\[\e[38;5;14m\]" # Ahead | Cyan
-C_BHD="\[\e[38;5;13m\]" # Behind | Magenta
+    C_STA="\[\e[38;5;40m\]" # Staged | green 
+    C_UNS="\[\e[38;5;166m\]" # Unstaged | orange 
+    C_UNT="\[\e[38;5;197m\]" # Untracked | red 
 
-C_GEN_B="\[\e[48;5;234m\]" # General background color | black
-C_GEN_F="\[\e[97m\]" # General foreground color | white
-C_GEN_T="\[\e[0;38;5;234m\]" # General background transition
+    C_AHD="\[\e[38;5;14m\]" # Ahead | Cyan
+    C_BHD="\[\e[38;5;13m\]" # Behind | Magenta
+
+    C_GEN_B="\[\e[48;5;234m\]" # General background color | black
+    C_GEN_F="\[\e[97m\]" # General foreground color | white
+    C_GEN_T="\[\e[0;38;5;234m\]" # General background transition
+elif [[ -n "$ZSH_VERSION" ]]; then
+    C_STP="\e[0m" # Stop
+
+    C_EXT_F="\e[37m" # Return/Exit code | white / black
+
+    C_NNN_F="\e[38;5;163m" # nnn | purple (dark/light)
+
+    C_CWD_F="\e[38;5;39m" # Current Working Directory | blue (dark/light)
+
+    C_BRA_F="\e[38;5;214m" # Git Branch | yellow (dark/light)
+
+    C_SBR_F="\e[37m" # git status square brackets | white / black
+
+    C_STA="\e[38;5;40m" # Staged | green 
+    C_UNS="\e[38;5;166m" # Unstaged | orange 
+    C_UNT="\e[38;5;197m" # Untracked | red 
+
+    C_AHD="\e[38;5;14m" # Ahead | Cyan
+    C_BHD="\e[38;5;13m" # Behind | Magenta
+
+    C_GEN_B="\e[48;5;234m" # General background color | black
+    C_GEN_F="\e[97m" # General foreground color | white
+    C_GEN_T="\e[0;38;5;234m" # General background transition
+fi
+
