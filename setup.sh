@@ -36,7 +36,7 @@ for executable in qbl_init \
 done
 
 # Asks to replace fancy glyphs if supporting fonts not found
-if ! grep -qPi "nerd|powerglyph" <<< "$(fc-list)"; then
+if ! grep -qPi "nerd|powerline" <<< "$(fc-list)"; then
     echo 'Font that supports fancy glyphs not found.'
     echo -n 'Do you want to use ▐ & ▌ instead of &  ? y/any: '
     read answer
