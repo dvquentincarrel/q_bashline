@@ -10,7 +10,7 @@ _exit=
 _nnn=
 _cwd=
 QBL_SLEEP=${QBL_SLEEP:-0.02}
-QBL_ASYNC=${QBL_ASYNC:-false} # Synchronous by default
+QBL_ASYNC=${QBL_ASYNC:-true} # Asynchronous by default
 GIT_INFO= # Remove if you don't want to reset output between each command
 
 # Displays error message ONCE, after the coproc died

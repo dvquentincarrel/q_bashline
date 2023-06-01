@@ -27,8 +27,8 @@ while read -r path; do
     output=$(git status --porcelain | cut -c -2)
     if [[ -n "$output" ]]; then
         untracked=$(grep -c '^??' <<< "$output")
-        unstaged=$(grep -c '^ .' <<< "$output")
-        staged=$(grep -c '^. ' <<< "$output")
+        unstaged=$(grep -c '^ .\|^MM' <<< "$output")
+        staged=$(grep -c '^. \|^MM' <<< "$output")
         printf -v Q_GINFO "▕ ${C_STA}${staged}+${C_UNS}${unstaged}!${C_UNT}${untracked}?${C_GEN_F}"
     fi
 
