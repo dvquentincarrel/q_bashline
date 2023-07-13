@@ -16,13 +16,6 @@ while read -r path; do
     latest_path=$(drain_socket ${CO_NC_GIT[0]} "$path")
     cd "$latest_path"
 
-    # Get current branch name or commit sha if detached
-    head_info=$(git branch --show-current)
-    if [[ -z "$head_info" ]]; then
-        head_info=$(git rev-parse --short HEAD)
-    fi
-    printf -v Q_GBRANCH "▕ ${C_BRA_F}${head_info}${C_GEN_F}"
-
     # if there are local changes
     output=$(git status --porcelain | cut -c -2)
     if [[ -n "$output" ]]; then
