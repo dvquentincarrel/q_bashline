@@ -2,7 +2,7 @@
 
 # Status line for bash
 # Structure:
-#     exit_code / nnn_depth / pwd / git-branch / git-status-infos
+#     exit_code / b64_time / nnn_depth / pwd / git-revision / git-status-infos
 
 exit_code=$?
 
@@ -14,6 +14,13 @@ QBL_ASYNC=${QBL_ASYNC:-true} # Asynchronous by default
 GIT_REV=
 REPO_INFO= # Remove if you don't want to reset output between each command
 
+# Modular, en/disable certain parts
+QBL_USE_EXIT=${QBL_USE_EXIT:-true}
+QBL_USE_CWD=${QBL_USE_CWD:-true}
+QBL_USE_TIME=${QBL_USE_TIME:-true}
+QBL_USE_NNN=${QBL_USE_NNN:-true}
+QBL_USE_GIT=${QBL_USE_GIT:-true}
+
 # Displays error message ONCE, after the coproc died
 if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
     QBL_ALIVE=false
@@ -22,7 +29,7 @@ fi
 
 
 # If inside git repo
-if [[ -d .git ]] || git rev-parse 2>/dev/null; then
+if $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
 
     # Get current branch name or commit sha if detached
     head_info=$(git branch --show-current)
@@ -47,11 +54,15 @@ if [[ -d .git ]] || git rev-parse 2>/dev/null; then
     fi
 fi
 
-printf -v _exit "${C_EXT_F}${exit_code}${C_GEN_F}"
-printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
+if $QBL_USE_TIME && which b64_time &>/dev/null; then
+    printf -v _time "▕ $(b64_time)"
+fi
+
+$QBL_USE_EXIT && printf -v _exit "${C_EXT_F}${exit_code}${C_GEN_F}"
+$QBL_USE_CWD && printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
 
 # if inside nnn
-[ -n "$NNNLVL" ] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
+$QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
 
-printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_nnn}${_cwd}${GIT_REV}${REPO_INFO}${C_GEN_T}${C_STP} "
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_nnn}${_cwd}${GIT_REV}${REPO_INFO}${C_GEN_T}${C_STP} "
 printf "\e]0 $(basename $PWD)" # Updates window title
