@@ -10,7 +10,7 @@ _exit=
 _nnn=
 _cwd=
 QBL_SLEEP=${QBL_SLEEP:-0.02}
-QBL_ASYNC=${QBL_ASYNC:-true} # Asynchronous by default
+QBL_ASYNC=${QBL_ASYNC:-false} # Sync by default, overidden by the qbl.async git config key (true / false)
 GIT_REV=
 REPO_INFO= # Remove if you don't want to reset output between each command
 
@@ -46,7 +46,7 @@ elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
         # Sends cwd to git_lineutils
         pwd -P >&${CO_NC_GIT[1]}
         # Get only the latest output produced by git linetuils
-        if [[ $QBL_ASYNC == true ]]; then
+        if $(git config qbl.async || echo $QBL_ASYNC); then
             sleep $QBL_SLEEP # Unnoticeable, "long" enough to give time to git_lineutils to process its things, usually
             while read -t 0; do # While there's buffered data in the pipe
                 read -r REPO_INFO <&${CO_NC_GIT[0]}
