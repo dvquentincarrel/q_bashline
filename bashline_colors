@@ -6,11 +6,12 @@ C_STP="\[\e[0m\]" # Stop
 
 C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
 
-C_NNN_F="\[\e[38;5;163m\]" # nnn | purple (dark/light)
+C_NNN_F="\[\e[38;5;163m\]" # nnn | purple 
 
-C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue (dark/light)
+C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue 
 
-C_BRA_F="\[\e[38;5;214m\]" # Git Branch | yellow (dark/light)
+C_BRA_F="\[\e[38;5;214m\]" # Git Branch | yellow 
+C_BAR_F="\[\e[38;5;202m\]" # Bare repo | dark orange
 
 C_SBR_F="\[\e[37m\]" # git status square brackets | white / black
 

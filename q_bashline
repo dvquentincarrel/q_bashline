@@ -28,9 +28,11 @@ if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
 fi
 
 
-# If inside git repo & not bare
 is_bare_repo=$(git rev-parse --is-bare-repository 2>/dev/null)
-if $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ) && ! $is_bare_repo; then
+if [[ -n $is_bare_repo ]] && $is_bare_repo; then
+    printf -v GIT_REV "▕ ${C_BAR_F}BARE${C_GEN_F}"
+# If inside git repo
+elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
 
     # Get current branch name or commit sha if detached
     head_info=$(git branch --show-current)
