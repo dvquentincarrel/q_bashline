@@ -17,6 +17,7 @@ C_SBR_F="\[\e[37m\]" # git status square brackets | white / black
 C_STA="\[\e[38;5;40m\]" # Staged | green 
 C_UNS="\[\e[38;5;166m\]" # Unstaged | orange 
 C_UNT="\[\e[38;5;197m\]" # Untracked | red 
+C_TSH="\[\e[38;5;242m\]" 
 
 C_AHD="\[\e[38;5;14m\]" # Ahead | Cyan
 C_BHD="\[\e[38;5;13m\]" # Behind | Magenta
