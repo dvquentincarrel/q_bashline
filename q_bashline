@@ -12,6 +12,7 @@ _cwd=
 QBL_SLEEP=${QBL_SLEEP:-0.02}
 QBL_ASYNC=${QBL_ASYNC:-false} # Sync by default, overidden by the qbl.async git config key (true / false)
 GIT_REV=
+GIT_STASH= # How many stashed entries
 REPO_INFO= # Remove if you don't want to reset output between each command
 
 # Modular, en/disable certain parts
@@ -41,6 +42,13 @@ elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
     fi
     printf -v GIT_REV "▕ ${C_BRA_F}${head_info}${C_GEN_F}"
 
+
+    stash_entries=$(git stash list | wc -l)
+    if [[ $stash_entries -gt 0 ]]; then
+        GIT_STASH="▕ ${C_TSH}${stash_entries}s${C_GEN_F}"
+    fi
+
+
     # If coproc still alive
     if [[ -n $CO_NC_GIT ]]; then
         # Sends cwd to git_lineutils
@@ -67,5 +75,5 @@ $QBL_USE_CWD && printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
 # if inside nnn
 $QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
 
-printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_nnn}${_cwd}${GIT_REV}${REPO_INFO}${C_GEN_T}${C_STP} "
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
 printf "\e]0 $(basename $PWD)" # Updates window title
