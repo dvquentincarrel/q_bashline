@@ -3,10 +3,10 @@
 
 # Sets up coprocess for IPC, creates prompt maker, handles deletion of unix socket at process death, updates prompt
 coproc CO_NC_GIT { trap -- "true" EXIT; nc -klU /tmp/.QBL_$$; } && disown $!
-trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
 if [[ -n "$CO_NC_GIT" ]]; then
     git_lineutils $$ & disown $!
     LINEUTILS_PID=$!
     source bashline_colors
     PROMPT_COMMAND="source q_bashline${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 fi
+trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
