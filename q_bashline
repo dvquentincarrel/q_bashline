@@ -29,23 +29,23 @@ if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
 fi
 
 
-is_bare_repo=$(git rev-parse --is-bare-repository 2>/dev/null)
-if [[ -n $is_bare_repo ]] && $is_bare_repo; then
+QBL_is_bare_repo=$(git rev-parse --is-bare-repository 2>/dev/null)
+if [[ -n $QBL_is_bare_repo ]] && $QBL_is_bare_repo; then
     printf -v GIT_REV "▕ ${C_BAR_F}BARE${C_GEN_F}"
 # If inside git repo
 elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
 
     # Get current branch name or commit sha if detached
-    head_info=$(git branch --show-current)
-    if [[ -z "$head_info" ]]; then
-        head_info=$(git rev-parse --short HEAD)
+    QBL_head_info=$(git branch --show-current)
+    if [[ -z "$QBL_head_info" ]]; then
+        QBL_head_info=$(git rev-parse --short HEAD)
     fi
-    printf -v GIT_REV "▕ ${C_BRA_F}${head_info}${C_GEN_F}"
+    printf -v GIT_REV "▕ ${C_BRA_F}${QBL_head_info}${C_GEN_F}"
 
 
-    stash_entries=$(git stash list | wc -l)
-    if [[ $stash_entries -gt 0 ]]; then
-        GIT_STASH="▕ ${C_TSH}${stash_entries}s${C_GEN_F}"
+    QBL_stash_entries=$(git stash list | wc -l)
+    if [[ $QBL_stash_entries -gt 0 ]]; then
+        GIT_STASH="▕ ${C_TSH}${QBL_stash_entries}s${C_GEN_F}"
     fi
 
 
