@@ -22,7 +22,7 @@ while read -r path; do
         untracked=$(grep -c '^??' <<< "$output")
         unstaged=$(grep -c '^ .\|^MM' <<< "$output")
         staged=$(grep -c '^. \|^MM' <<< "$output")
-        printf -v Q_GINFO "▕ ${C_STA}${staged}+${C_UNS}${unstaged}!${C_UNT}${untracked}?${C_GEN_F}"
+        printf -v Q_GINFO "▕ ${C_STA}${staged}+${C_UNS}${unstaged}!${C_UNT}${untracked}?${C_GEN_F}"
     fi
 
 
@@ -31,7 +31,7 @@ while read -r path; do
     if [[ -n "$head_line" ]]; then
         behind=$(grep -Po "behind \K\d+" <<< "$head_line")
         ahead=$(grep -Po "ahead \K\d+" <<< "$head_line")
-        printf -v Q_REMOTE "▕ ${C_BHD}${behind:+$behind↓}${C_AHD}${ahead:+$ahead↑}"
+        printf -v Q_REMOTE "▕ ${C_BHD}${behind:+$behind↓}${C_AHD}${ahead:+$ahead↑}"
     fi
 
     echo "${Q_GBRANCH}${Q_GINFO}${Q_REMOTE}" >&${CO_NC_GIT[1]}
