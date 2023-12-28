@@ -33,7 +33,7 @@ QBL_is_bare_repo=$(git rev-parse --is-bare-repository 2>/dev/null)
 if [[ -n $QBL_is_bare_repo ]] && $QBL_is_bare_repo; then
     printf -v GIT_REV "▕ ${C_BAR_F}BARE${C_GEN_F}"
 # If inside git repo
-elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse 2>/dev/null ); then
+elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse --show-toplevel 2>/dev/null ); then
 
     # Get current branch name or tag or commit sha if detached
     QBL_head_info=$(git tag --points-at HEAD | tail -n 1)
