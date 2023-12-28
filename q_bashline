@@ -36,7 +36,7 @@ if [[ -n $QBL_is_bare_repo ]] && $QBL_is_bare_repo; then
 elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse --show-toplevel 2>/dev/null ); then
 
     # Get current branch name or tag or commit sha if detached
-    QBL_head_info=$(git tag --points-at HEAD | tail -n 1)
+    QBL_head_info=$(git rev-parse HEAD >/dev/null 2>&1 && git tag --points-at HEAD | tail -n 1)
     QBL_head_color=${C_TAG_F}
     if [[ -z "$QBL_head_info" ]]; then
         QBL_head_info=$(git branch --show-current)
