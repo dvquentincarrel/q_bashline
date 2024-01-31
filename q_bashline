@@ -66,7 +66,13 @@ elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse --show-toplevel >/dev/null
                 read -r REPO_INFO <&${CO_NC_GIT[0]}
             done <&${CO_NC_GIT[0]}
         else
-            read -r REPO_INFO <&${CO_NC_GIT[0]}
+            read -t 1 -r REPO_INFO <&${CO_NC_GIT[0]}
+            if [[ $? -gt 128 ]]; then # Happens if netcat attempts to connect to the pipe before creating it
+                export QBL_USE_GIT=false
+                echo -e "\x1b[31mERROR !\x1b[m QBL could not read from socket."
+                echo -e "Disabled git integration"
+                echo -e "Type \x1b[33mQBL_USE_GIT=true\x1b[m to attempt to re-enable it"
+            fi
         fi
     fi
 fi
