@@ -88,4 +88,4 @@ $QBL_USE_CWD && printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
 $QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
 
 printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
-printf "\e]0 $(basename $PWD)" # Updates window title
+printf "\e]0 $(basename '$PWD')" # Updates window title
