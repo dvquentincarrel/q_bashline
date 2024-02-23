@@ -4,6 +4,20 @@
 source bashline_colors
 source drain_socket
 
+
+TRIES=10 # If the socket isn't found, how many tries before giving up
+counter=0
+while [[ $counter -ne $TRIES ]] && ! [[ -S /tmp/.QBL_$PPID ]]; do
+    sleep 0.01
+    ((counter++))
+done
+
+if [[ $counter -eq $TRIES ]]; then
+    echo "Could not connect to qbl socket"
+    echo "Starting a new shell should solve the issue"
+    exit 1
+fi
+
 coproc CO_NC_GIT { nc -U /tmp/.QBL_$PPID; }
 
 # Loops over socket
