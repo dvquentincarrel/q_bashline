@@ -9,7 +9,7 @@ if [[ "$QBL_LOADED" -ne '1' ]]; then
         git_lineutils $$ & disown $!
         LINEUTILS_PID=$!
         source bashline_colors
-        PROMPT_COMMAND="source q_bashline${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+        PROMPT_COMMAND="source q_bashline"${PROMPT_COMMAND:+"; $PROMPT_COMMAND"}
         trap "rm -f /tmp/.QBL_$$ >/dev/null; kill $LINEUTILS_PID" EXIT
     fi
     QBL_LOADED=1
