@@ -5,8 +5,9 @@ This is a statusline for bash.
 - Last exit code
 - Current working directory
 - NNN recursion depth
-- Current git branch
+- Current Git branch/sha-1/tag
 - Working tree status
+- Git remotes status
 
 Due to the time it may take to retrieve informations on large repos, this operation
 is done asynchronously with IPC done through UNIX sockets.  
@@ -17,11 +18,6 @@ Should the asynchronicity bother you, you could disable it by setting the env va
 `$QBL_ASYNC` to false.
 
 ## Installation
-To wire your bash to use this, run `setup.sh` or add the corresponding lines
-at the end of your bashrc:
-~~~ bash
-coproc CO_NC_GIT { trap -- "true" EXIT; nc -klU /tmp/.QBL_$$; } && disown $!
-git_lineutils $$ & disown $!
-LINEUTILS_PID=$!
-trap "rm -f /tmp/.QBL_$$; kill $LINEUTILS_PID" EXIT
-~~~
+To wire your bash to use this, run `make modify_bashrc=true` from inside this directory.  
+If your bash automatically sources files inside some directory at start up, you
+can put `qbl_init.bash` inside of it instead.

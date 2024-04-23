@@ -1,4 +1,3 @@
-#!/bin/bash
 # Initializes everything needed for the bashline. Makes it so only a single line is needed in the bashrc
 
 # Sets up coprocess for IPC, creates prompt maker, handles deletion of unix socket at process death, updates prompt
