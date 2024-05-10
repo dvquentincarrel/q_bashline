@@ -28,7 +28,6 @@ if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
     echo -e '\e[1;31mq_bashline died\e[0m'
 fi
 
-
 QBL_is_bare_repo=$(git rev-parse --is-bare-repository 2>/dev/null)
 if [[ -n $QBL_is_bare_repo ]] && $QBL_is_bare_repo; then
     printf -v GIT_REV "▕ ${C_BAR_F}BARE${C_GEN_F}"
@@ -48,12 +47,10 @@ elif $QBL_USE_GIT && ( [[ -d .git ]] || git rev-parse --show-toplevel >/dev/null
     fi
     printf -v GIT_REV "▕ ${QBL_head_color}${QBL_head_info}${C_GEN_F}"
 
-
     QBL_stash_entries=$(git stash list | wc -l)
     if [[ $QBL_stash_entries -gt 0 ]]; then
         GIT_STASH="▕ ${C_TSH}${QBL_stash_entries}s${C_GEN_F}"
     fi
-
 
     # If coproc still alive
     if [[ -n $CO_NC_GIT ]]; then

@@ -18,6 +18,8 @@ Should the asynchronicity bother you, you could disable it by setting the env va
 `$QBL_ASYNC` to false.
 
 ## Installation
-To wire your bash to use this, run `make modify_bashrc=true` from inside this directory.  
-If your bash automatically sources files inside some directory at start up, you
-can put `qbl_init.bash` inside of it instead.
+To install the statusline, just run `./install`.  
+To uninstall it, run `./install -u`. There should also be this line somewhere in your .bashrc:
+```bash
+for file in $(echo ${HOME}/.config/bash/setup/*); do source $file; done
+```
