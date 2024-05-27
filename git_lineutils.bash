@@ -7,7 +7,7 @@ source drain_socket
 
 TRIES=10 # If the socket isn't found, how many tries before giving up
 counter=0
-while [[ $counter -ne $TRIES ]] && ! [[ -S /tmp/.QBL_$PPID ]]; do
+while [[ $counter -ne $TRIES ]] && ! [[ -S "$1" ]]; do
     sleep 0.01
     ((counter++))
 done
@@ -18,7 +18,7 @@ if [[ $counter -eq $TRIES ]]; then
     exit 1
 fi
 
-coproc CO_NC_GIT { nc -U /tmp/.QBL_$PPID; }
+coproc CO_NC_GIT { nc -U "$1"; }
 
 # Loops over socket
 while read -r path; do
