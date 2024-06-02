@@ -6,21 +6,22 @@ C_STP="\[\e[0m\]" # Stop
 
 C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
 
-C_NNN_F="\[\e[38;5;163m\]" # nnn | purple 
+C_NNN_F="\[\e[38;5;163m\]" # nnn | purple
 
-C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue 
+C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue
 
-C_BRA_F="\[\e[38;5;214m\]" # Git Branch    | yellow 
+C_BRA_F="\[\e[38;5;214m\]" # Git Branch    | yellow
 C_TAG_F="\[\e[38;5;205m\]" # Git Tag       | pale pink
-C_DET_F="\[\e[38;5;202m\]" # Detached Head | dark orange 
+C_DET_F="\[\e[38;5;202m\]" # Detached Head | dark orange
 C_BAR_F="\[\e[38;5;202m\]" # Bare repo     | dark orange
 
 C_SBR_F="\[\e[37m\]" # git status square brackets | white / black
 
-C_STA="\[\e[38;5;40m\]" # Staged | green 
-C_UNS="\[\e[38;5;166m\]" # Unstaged | orange 
-C_UNT="\[\e[38;5;197m\]" # Untracked | red 
-C_TSH="\[\e[38;5;242m\]" 
+C_STA="\[\e[38;5;40m\]" # Staged | green
+C_UNS="\[\e[38;5;166m\]" # Unstaged | orange
+C_UNT="\[\e[38;5;197m\]" # Untracked | red
+C_UNM="\[\e[38;5;213m\]" # Unmered | pink
+C_TSH="\[\e[38;5;242m\]"
 
 C_AHD="\[\e[38;5;14m\]" # Ahead | Cyan
 C_BHD="\[\e[38;5;13m\]" # Behind | Magenta

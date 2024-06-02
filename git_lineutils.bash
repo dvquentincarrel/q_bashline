@@ -33,10 +33,12 @@ while read -r path; do
     # if there are local changes
     output=$(git status --porcelain | cut -c -2)
     if [[ -n "$output" ]]; then
-        untracked=$(grep -c '^??' <<< "$output")
-        unstaged=$(grep -c '^ .\|^MM' <<< "$output")
-        staged=$(grep -c '^. \|^MM' <<< "$output")
-        printf -v Q_GINFO "▕ ${C_STA}${staged}+${C_UNS}${unstaged}!${C_UNT}${untracked}?${C_GEN_F}"
+        untracked=${C_UNT}$(grep -c '^??' <<< "$output")"?"
+        unstaged=${C_UNS}$(grep -c '^ .\|^MM' <<< "$output")"!"
+        staged=${C_STA}$(grep -c '^. \|^MM' <<< "$output")"+"
+        unmerged=$(grep -c '^D[DU]\|U[ADU]\|A[AU]' <<< "$output")
+        [[ $unmerged != 0 ]] && unmerged="${C_UNM}${unmerged}#" || unmerged=""
+        printf -v Q_GINFO "▕ ${staged}${unstaged}${untracked}${unmerged}${C_GEN_F}"
     fi
 
 
