@@ -79,7 +79,10 @@ if $QBL_USE_TIME && which b64_time &>/dev/null; then
 fi
 
 $QBL_USE_EXIT && printf -v _exit "${C_EXT_F}${exit_code}${C_GEN_F}"
-$QBL_USE_CWD && printf -v _cwd "▕ ${C_CWD_F}\w${C_GEN_F}"
+if [[ $QBL_USE_CWD ]]; then
+    _colored_cwd=$(dirs +0 | sed "s@/@${C_DMK_F}/${C_CWD_F}@g")
+    printf -v _cwd "▕ ${C_CWD_F}${_colored_cwd}${C_GEN_F}"
+fi
 
 # if inside nnn
 $QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"

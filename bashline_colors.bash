@@ -8,7 +8,8 @@ C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
 
 C_NNN_F="\[\e[38;5;163m\]" # nnn | purple
 
-C_CWD_F="\[\e[38;5;39m\]" # Current Working Directory | blue
+C_CWD_F="\\\[\x1b[38;5;39m\\\]" # Current Working Directory | blue
+C_DMK_F="\\\[\x1b[38;5;101m\\\]" # Dir marker " / " | pale green
 
 C_BRA_F="\[\e[38;5;214m\]" # Git Branch    | yellow
 C_TAG_F="\[\e[38;5;205m\]" # Git Tag       | pale pink
