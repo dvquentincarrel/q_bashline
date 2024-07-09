@@ -5,6 +5,7 @@
 C_STP="\[\e[0m\]" # Stop
 
 C_EXT_F="\[\e[37m\]" # Return/Exit code | white / black
+C_STP_F="\[\e[38;5;202m\]" # Stopped jobs | Orange
 
 C_NNN_F="\[\e[38;5;163m\]" # nnn | purple
 
