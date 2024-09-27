@@ -23,6 +23,7 @@ QBL_USE_TIME=${QBL_USE_TIME:-true}
 QBL_USE_NNN=${QBL_USE_NNN:-true}
 QBL_USE_JOBS=${QBL_USE_JOBS:-true}
 QBL_USE_GIT=${QBL_USE_GIT:-true}
+QBL_USE_VENV=${QBL_USE_VENV:-true}
 
 # Displays error message ONCE, after the coproc died
 if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
@@ -86,10 +87,12 @@ if [[ $QBL_USE_CWD ]]; then
     printf -v _cwd "▕ ${C_CWD_F}${_colored_cwd}${C_GEN_F}"
 fi
 
+$QBL_USE_VENV && [[ -n "$VIRTUAL_ENV" ]] && printf -v _venv "▕ ${C_PY_F}${C_GEN_F}"
+
 # if inside nnn
 $QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}${C_GEN_F}"
 
 $QBL_USE_JOBS && [[ -n $(jobs -s) ]] && printf -v _nnn "▕ ${C_STP_F}⏳$(jobs -sp | wc -l)${C_GEN_F}"
 
-printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_venv}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
 printf "\e]0 $(basename '$PWD')" # Updates window title

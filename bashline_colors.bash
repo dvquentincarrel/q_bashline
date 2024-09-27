@@ -9,6 +9,8 @@ C_STP_F="\[\e[38;5;202m\]" # Stopped jobs | Orange
 
 C_NNN_F="\[\e[38;5;163m\]" # nnn | purple
 
+C_PY_F="\[\e[93m\]" # python | bright yellow
+
 C_CWD_F="\\\[\x1b[38;5;39m\\\]" # Current Working Directory | blue
 C_DMK_F="\\\[\x1b[38;5;101m\\\]" # Dir marker " / " | pale green
 
