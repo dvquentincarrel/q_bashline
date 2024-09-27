@@ -10,6 +10,8 @@ _exit=
 _nnn=
 _stopped=
 _cwd=
+_hist=
+_venv=
 QBL_SLEEP=${QBL_SLEEP:-0.02}
 QBL_ASYNC=${QBL_ASYNC:-false} # Sync by default, overidden by the qbl.async git config key (true / false)
 GIT_REV=
@@ -24,6 +26,7 @@ QBL_USE_NNN=${QBL_USE_NNN:-true}
 QBL_USE_JOBS=${QBL_USE_JOBS:-true}
 QBL_USE_GIT=${QBL_USE_GIT:-true}
 QBL_USE_VENV=${QBL_USE_VENV:-true}
+QBL_USE_HIST=${QBL_USE_HIST:-true}
 
 # Displays error message ONCE, after the coproc died
 if [[ -z $CO_NC_GIT ]] && $QBL_ALIVE; then
@@ -94,5 +97,8 @@ $QBL_USE_NNN && [[ -n "$NNNLVL" ]] && printf -v _nnn "▕ ${C_NNN_F}n${NNNLVL}$
 
 $QBL_USE_JOBS && [[ -n $(jobs -s) ]] && printf -v _nnn "▕ ${C_STP_F}⏳$(jobs -sp | wc -l)${C_GEN_F}"
 
-printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_venv}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
+$QBL_USE_HIST && [[ -e $TMPDIR/bash_nohist ]] && printf -v _hist "▕ ${C_HIST_F}📕${C_GEN_F}"
+
+
+printf -v PS1 "${C_GEN_T}${C_GEN_B}${_exit}${_time}${_hist}${_venv}${_nnn}${_cwd}${GIT_REV}${GIT_STASH}${REPO_INFO}${C_GEN_T}${C_STP} "
 printf "\e]0 $(basename '$PWD')" # Updates window title
